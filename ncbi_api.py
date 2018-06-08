@@ -148,7 +148,6 @@ def fetch_symbol(x):
 
 def fetch_pubmed(x):
     symbol = x
-    'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=proB'
     querystring = 'esearch.fcgi?db=pmc&term={}'
     url = base + querystring.format(symbol)
 
@@ -171,11 +170,10 @@ def fetch_pubmed(x):
 
 
 def fetch_fasta(x):
-    'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=21614549&rettype=fasta'
 
     ID = x
     querystring = 'efetch.fcgi?db=nuccore&id={}&rettype=fasta'
-    url = base + querystring.format(x)
+    url = base + querystring.format(ID)
 
     req = do_request(url)
 
@@ -190,14 +188,14 @@ def fetch_fasta(x):
 
 
 
-#
-# if __name__ == '__main__':
-#
-#     csv_path = argv[1]
-#     fetch_ids(csv_path)
-#
-csv_path = '/home/sevvy/Documents/owe11/bioinformatica/data/RNA-Seq-counts.txt'
-fetch_ids(csv_path)
+
+if __name__ == '__main__':
+    #
+    # csv_path = argv[1]
+    # fetch_ids(csv_path)
+
+    csv_path = '/home/sevvy/Documents/owe11/bioinformatica/data/RNA-Seq-counts.txt'
+    fetch_ids(csv_path)
 
 """
 1. Genn symbolen omzetten in entrez ID's
@@ -209,6 +207,5 @@ fetch_ids(csv_path)
 7. Rapport bouwert
 8. asci 
 9. DAG
-10. excell"""
+10. excel"""
 
-"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=nuccore&query_key=948217&rettype=fasta"
