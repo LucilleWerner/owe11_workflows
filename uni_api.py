@@ -7,7 +7,7 @@ base = 'https://www.uniprot.org/uniprot/{}.xml'
 
 funcs = list()
 
-def initiate(csv_path):
+def init_uni(csv_path):
 
     df = read_csv(csv_path)
 
@@ -18,7 +18,7 @@ def initiate(csv_path):
     # get uniprot ids
     df = id_convert(df, 'entrez', 'uniprot', 'P_ENTREZGENEID', 'ACC')
     # get eggnog ids
-    df = id_convert(df, 'uniprot', 'eggnog', 'ACC', 'eggNOG_ID')
+    df = id_convert(df, 'uniprot', 'eggnog', 'ACC', 'EGGNOG_ID')
     # get oma ids
     df = id_convert(df, 'uniprot', 'oma', 'ACC', 'OMA_ID')
 
@@ -55,14 +55,14 @@ def get_func(x):
 
     }
     params['query'] = UID
-
+    print(params)
     text = do_request(base, prms=params)
 
     if text:
         results = text
         # get second row (first result)
         results = results.split('\n')[2]
-        func = results.split('\t')[1]
+        func = results.split('\t')
     else:
         func = ''
 
@@ -110,5 +110,5 @@ def id_convert(df, from_col, to_col, from_db, to_db):
 
 
 if __name__ == '__main__':
-    initiate('/home/sevvy/PycharmProjects/bioapis/workflow.csv')
+    init_uni('/home/sevvy/PycharmProjects/bioapis/workflow.csv')
 

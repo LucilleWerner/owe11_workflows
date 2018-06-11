@@ -126,7 +126,6 @@ def get_entrez_ids(x):
 
 def fetch_symbol(x):
     ID = x
-    print(ID)
     querystring = 'esummary.fcgi?db=gene&id={}'
     url = base+querystring.format(ID)
 
@@ -138,7 +137,6 @@ def fetch_symbol(x):
         id_lookup = soup.find('name')
         if id_lookup:
             symbol = id_lookup.text
-            print(symbol)
         else:
             symbol = ''
     else:
@@ -160,7 +158,7 @@ def fetch_pubmed(x):
         id_lookup = soup.idlist
         if id_lookup:
             ids = [i.text for i in id_lookup if isinstance(i, element.Tag)]
-            ids = ', '.join(ids[0:6])
+            ids = ', '.join(ids[0:10])
         else:
             ids = ''
     else:
@@ -179,7 +177,6 @@ def fetch_fasta(x):
 
     if req:
         fasta = ''.join(req.text.split('\n')[1:])
-        print(fasta)
 
     else:
         fasta = ''

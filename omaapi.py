@@ -2,12 +2,10 @@ import pandas
 import requests
 import simplejson
 from time import sleep
-base = 'https://omabrowser.org/api/protein/{}/orthologs'
+
+base = 'https://omabrowser.org/api/group/{}/'
 
 ortholist = list()
-
-
-
 
 def do_request(url, prms=None):
     try:
@@ -22,10 +20,14 @@ def get_orthologs(path):
 
     df = read_csv(path)
 
+    print(df)
+
     # retrieve orthologs
     df['oma'].apply(oma_call, 1)
     # add list with orthologs to df
     df['orthologs'] = ortholist
+
+    print(df.head(5))
 
 
 def read_csv(csv_path):
@@ -37,22 +39,27 @@ def read_csv(csv_path):
 def oma_call(x):
     ID = x
 
-    params = {'rel_type' '1:1'}
-
     url = base.format(ID)
 
-    req = do_request(url, prms=params)
+    req = do_request(url)
 
     orthos = list()
     if req:
         doc = req.json()
         if doc:
-            doc = doc[0:11]
-            for entry in doc:
-                orthos.append(entry['canonicalid'])
+            members = doc['members']
+
+            for entry in members:
+                canon = entry['canonicalid']
+                if canon != '':
+                    orthos.append(canon)
+                if len(orthos) == 10:
+                    break
 
     orthos = ' ,'.join(orthos)
 
     ortholist.append(orthos)
 
 
+if __name__ == '__main__':
+    get_orthologs('/home/sevvy/PycharmProjects/bioapis/workflow.csv')
