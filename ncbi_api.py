@@ -5,6 +5,10 @@ from sys import argv
 from bs4 import element
 from bs4 import BeautifulSoup
 
+input = str(argv[1])
+output = str(argv[2])
+
+
 
 id_types = {
     "ensembl": 'ENS[A-Z]+[0-9]{11}|[A-Z]{3}[0-9]{3}[A-Za-z](-[A-Za-z])?'
@@ -70,7 +74,7 @@ def fetch_ids(csv_path):
 
     print(df.head(5))
 
-    df.to_csv('workflow.csv', header=True, sep='\t', index=False)
+    df.to_csv(path_or_buf=output, header=True, sep='\t', index=False)
 
 
 def read_csv(csv_path):
@@ -191,8 +195,7 @@ if __name__ == '__main__':
     # csv_path = argv[1]
     # fetch_ids(csv_path)
 
-    csv_path = '/home/sevvy/Documents/owe11/bioinformatica/data/RNA-Seq-counts.txt'
-    fetch_ids(csv_path)
+    fetch_ids(input)
 
 """
 1. Genn symbolen omzetten in entrez ID's
@@ -202,7 +205,6 @@ if __name__ == '__main__':
 5. eggnog phylogentic
 6. GC plotjes
 7. Rapport bouwert
-8. asci 
+8. asci
 9. DAG
 10. excel"""
-
