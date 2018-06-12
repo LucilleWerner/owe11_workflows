@@ -2,11 +2,11 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sys import argv
 
-argv[1] = input
-argv[2] = output
+input = argv[1]
+output = argv[2]
 
 seqdf = pd.read_csv(argv[1], sep='\t')
-seqs = seqdf["seq"]
+seqs = seqdf["fasta"]
 IDs = seqdf["ID"]
 
 seqlen = []
@@ -33,4 +33,4 @@ axs.bar(names,values)
 fig.suptitle("gc percentage")
 fig.savefig(argv[2])
 seqdf["gc"] = seqlen
-seqdf.to_csv(path_or_buf=argv[1], index=False, sep="\t")
+#seqdf.to_csv(path_or_buf=argv[1], index=False, sep="\t")
