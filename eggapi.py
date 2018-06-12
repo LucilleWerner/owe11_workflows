@@ -18,7 +18,7 @@ def get_trees(path):
 
     df['tree'] = treelinks
 
-    df.to_csv(input)
+    df.to_csv(path_or_buf=output, header=True, sep='\t', index=False)
 
 def read_csv(csv_path):
     df = pandas.read_csv(csv_path, sep='\t', header=0, nrows=5)
@@ -36,6 +36,5 @@ def fetch_trees(x):
 
 
 if __name__ == '__main__':
-    input = argv[1]
-    output = argv[2]
+
     get_trees(input)
