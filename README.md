@@ -44,6 +44,6 @@ The input file must contain gene IDs. You can specify which column contains thes
 
 ### Output
 
-The output report contains all the gathered information in a tab separated file. CG plots will be saved in a subfolder "plots"
+The output report contains all the gathered information in an excel report. CG plots will be saved in an excel sheet 'plots'.
 
 ### The workflow
