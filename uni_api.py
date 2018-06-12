@@ -2,8 +2,11 @@ import pandas
 import requests
 import simplejson
 from time import sleep
+from sys import argv
 base = 'https://www.uniprot.org/uniprot/{}.xml'
 
+input = str(argv[1])
+output = str(argv[2])
 
 funcs = list()
 
@@ -24,7 +27,7 @@ def init_uni(csv_path):
 
     print(df.head(5))
 
-    df.to_csv('workflow.csv', header=True, sep='\t', index=False)
+    df.to_csv(output, header=True, sep='\t', index=False)
 
 
 def do_request(url, hdr=None, prms=None):
@@ -110,5 +113,4 @@ def id_convert(df, from_col, to_col, from_db, to_db):
 
 
 if __name__ == '__main__':
-    init_uni('/home/sevvy/PycharmProjects/bioapis/workflow.csv')
-
+    init_uni(input)
