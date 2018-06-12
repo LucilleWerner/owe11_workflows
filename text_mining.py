@@ -1,6 +1,10 @@
 import requests
 import pandas
 import numpy as np
+from sys import argv
+
+input = argv[1]
+output = argv[2]
 
 base = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/'
 symbol_list = list()
@@ -13,7 +17,7 @@ def text_mine(path):
 
     print(df)
 
-    df = df.replace(np.nan, '', regex=True)
+    df = df.replace(np.nan, '')
     print(df)
     get_symbols(df['symbol'])
 
@@ -23,7 +27,7 @@ def text_mine(path):
     # add list as new column for cooccurence
     df['cooccurence'] = linked_symbols
 
-    df.to_csv('workflow_text.csv', header=True, index=False, sep='\t')
+    df.to_csv(output, header=True, index=False, sep='\t')
 
 def read_csv(csv_path):
     df = pandas.read_csv(csv_path, sep='\t', header=0, nrows=5, dtype={'pubmed':str, 'entrez': str})
@@ -99,4 +103,4 @@ def parse_abs(abs, symbol):
 
 
 if __name__ == '__main__':
-    text_mine('workflow.csv')
+    text_mine(input)
