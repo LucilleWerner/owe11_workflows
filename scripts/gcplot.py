@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+from matplotlib import pyplot
 import pandas as pd
 from sys import argv
 
@@ -28,7 +28,7 @@ for seq in seqs:
 
 names = list(data.keys())
 values = list(data.values())
-fig, axs = plt.subplots(1,1, figsize = (len(seqs),3), sharey=True)
+fig, axs = pyplot.subplots(1,1, figsize = (len(seqs),3))
 axs.bar(names,values)
 fig.suptitle("gc percentage")
 fig.savefig(argv[2])

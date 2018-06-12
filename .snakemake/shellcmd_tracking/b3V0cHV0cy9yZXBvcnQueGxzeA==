@@ -1,0 +1,1 @@
+python3 scripts/excelwriter.py outputs/dfpostoma.csv outputs/gc.png outputs/report.xlsx

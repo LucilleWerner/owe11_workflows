@@ -10,7 +10,7 @@ dependencies:
   - pandas=0.22.0
   - simplejson=3.8.1
   - bioservices=1.5.2
-  - matplotlib=2.1.1
   - requests=2.18.4
-  - termcolor
-  - figlet
+  - termcolor=1.1.0
+  - figlet=0.7.5
+  - xlsxwriter=1.0.5

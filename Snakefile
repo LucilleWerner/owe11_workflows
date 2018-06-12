@@ -46,16 +46,16 @@ rule get_data_from_oma:
     shell:
         "python3 {input} {output}"
 
-#rule mine_text:
-#    message:
-#        "Mining for co-occurence of abstracts..."
-#    input:
-#        "scripts/text_mining.py",
-#        "outputs/dfpostoma.csv"
-#    output:
-#        "outputs/dftextmined.csv"
-#    shell:
-#        "python3 {input} {output}"
+rule mine_text:
+    message:
+        "Mining for co-occurence of abstracts..."
+    input:
+        "scripts/text_mining.py",
+        "outputs/dfpostoma.csv"
+    output:
+        "outputs/dftextmined.csv"
+    shell:
+        "python3 {input} {output}"
 
 rule make_gc_plot:
     message:
@@ -73,7 +73,7 @@ rule make_report:
         "Generating report"
     input:
         "scripts/excelwriter.py",
-        "outputs/dfpostoma.csv",
+        "outputs/dftextmined.csv",
         "outputs/gc.png"
     output:
         "outputs/report.xlsx"
@@ -91,3 +91,11 @@ rule surprise:
         "Eating some random garbage..."
     shell:
         "python3 scripts/surprise.py"
+
+rule dag:
+    message:
+        "creating workflow visualization"
+    output:
+        "workflow.svg"
+    shell:
+        "snakemake -s Snakefile --dag make_report | dot -Tsvg > workflow.svg"

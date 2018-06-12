@@ -37,6 +37,12 @@ conda env create -n <env name> -f conda_workflows.yaml
 ```bash
 source activate <env name>
 ```
+
+Lastly, matplotlib needs to be installed seperately using pip
+```bash
+pip install matplotlib
+```
+
 ### Input
 
 The input file must contain gene IDs. You can specify which column contains these IDs. The program will attempt to recognize the ID type and will perform mapping to a variety of gene IDs.
@@ -46,4 +52,3 @@ The input file must contain gene IDs. You can specify which column contains thes
 
 The output report contains all the gathered information in an excel report. CG plots will be saved in an excel sheet 'plots'.
 
-### The workflow
