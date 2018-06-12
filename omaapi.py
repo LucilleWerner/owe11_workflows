@@ -2,6 +2,10 @@ import pandas
 import requests
 import simplejson
 from time import sleep
+from sys import argv
+
+input = argv[1]
+output = argv[2]
 
 base = 'https://omabrowser.org/api/group/{}/'
 
@@ -27,7 +31,7 @@ def get_orthologs(path):
     # add list with orthologs to df
     df['orthologs'] = ortholist
 
-    print(df.head(5))
+    df.to_csv(path_or_buf=output,sep='\t',header=True,index=False)
 
 
 def read_csv(csv_path):
@@ -62,4 +66,4 @@ def oma_call(x):
 
 
 if __name__ == '__main__':
-    get_orthologs('/home/sevvy/PycharmProjects/bioapis/workflow.csv')
+    get_orthologs(input)
