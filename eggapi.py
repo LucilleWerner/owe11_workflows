@@ -2,6 +2,9 @@ import requests
 import pandas
 from sys import argv
 
+input = argv[1]
+output = argv[2]
+
 base = 'http://eggnogapi.embl.de/nog_data/html/tree/{}'
 treelinks = list()
 
