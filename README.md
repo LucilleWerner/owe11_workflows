@@ -31,7 +31,7 @@ https://conda.io/docs/user-guide/install/windows.html
 Second: the environment, the config file is included in this repository
 
 ``` bash
-conda env create -n <env name> -f scripts/environment.yaml
+conda env create -n <env name> -f conda_workflows.yaml
 ```
 
 ```bash
