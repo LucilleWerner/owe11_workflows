@@ -1,0 +1,1 @@
+python3 scripts/eggapi.py outputs/dfpostuniprot.csv outputs/dfposteggnog.csv

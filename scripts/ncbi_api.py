@@ -9,7 +9,6 @@ input = str(argv[1])
 output = str(argv[2])
 
 
-
 id_types = {
     "ensembl": 'ENS[A-Z]+[0-9]{11}|[A-Z]{3}[0-9]{3}[A-Za-z](-[A-Za-z])?'
                '|CG[0-9]+|[A-Z0-9]+\.[0-9]+|YM[A-Z][0-9]{3}[a-z][0-9]',
@@ -78,6 +77,11 @@ def fetch_ids(csv_path):
 
 
 def read_csv(csv_path):
+    """
+    reading of csv input file
+    :param csv_path: path of input file
+    :return: dataframe
+    """
     df = pandas.read_csv(csv_path, sep='\t', usecols=['ID'], header=0, skiprows=1, nrows=5)
     print(df)
 
@@ -85,6 +89,11 @@ def read_csv(csv_path):
 
 
 def check_id_types(x):
+    """
+    checking gene IDs for type with the use of regex
+    :param x: one item in a column of the df
+    :return:
+    """
     ID = x[0]
 
     for id_type in id_types:
@@ -94,6 +103,11 @@ def check_id_types(x):
             id_list.add(id_type)
 
 def do_request(url):
+    """
+    actual REST request, with check for status code
+    :param url: API url
+    :return: request object
+    """
     try:
         r = requests.get(url)
         while True:
@@ -106,6 +120,11 @@ def do_request(url):
 
 
 def get_entrez_ids(x):
+    """
+    retrieval of entrez IDs with Uniprot IDmapping
+    :param x: one item in a column of the df
+    :return:
+    """
     ID = x[0]
 
     querystring = 'esearch.fcgi?db={}&{}={}'
@@ -129,6 +148,11 @@ def get_entrez_ids(x):
     entrez_ids.append(entrez)
 
 def fetch_symbol(x):
+    """
+    retrieval of entrez gene symbols with Uniprot IDmapping
+    :param x: one item in a column of the df
+    :return:
+    """
     ID = x
     querystring = 'esummary.fcgi?db=gene&id={}'
     url = base+querystring.format(ID)
@@ -149,6 +173,11 @@ def fetch_symbol(x):
     symbols.append(symbol)
 
 def fetch_pubmed(x):
+    """
+    retrieval of associated pubmed IDs with Uniprot IDmapping
+    :param x: one item in a column of the df
+    :return:
+    """
     symbol = x
     querystring = 'esearch.fcgi?db=pmc&term={}'
     url = base + querystring.format(symbol)
@@ -170,8 +199,12 @@ def fetch_pubmed(x):
     pmids.append(ids)
 
 
-
 def fetch_fasta(x):
+    """
+    retrieval of fasta sequences based on gene ID
+    :param x: one item in a column of the df
+    :return:
+    """
 
     ID = x
     querystring = 'efetch.fcgi?db=nuccore&id={}&rettype=fasta'
@@ -188,23 +221,5 @@ def fetch_fasta(x):
     fastas.append(fasta)
 
 
-
-
 if __name__ == '__main__':
-    #
-    # csv_path = argv[1]
-    # fetch_ids(csv_path)
-
     fetch_ids(input)
-
-"""
-1. Genn symbolen omzetten in entrez ID's
-2. Kegg API (af)
-3. eggnog id's
-4. orthologs via eggnog
-5. eggnog phylogentic
-6. GC plotjes
-7. Rapport bouwert
-8. asci
-9. DAG
-10. excel"""

@@ -11,7 +11,11 @@ output = str(argv[2])
 funcs = list()
 
 def init_uni(csv_path):
-
+    """
+    Uniprot API module
+    :param csv_path: input csv
+    :return:
+    """
     df = read_csv(csv_path)
 
     df['entrez'].apply(get_func, 1)
@@ -31,6 +35,11 @@ def init_uni(csv_path):
 
 
 def do_request(url, hdr=None, prms=None):
+    """
+      actual REST request, with check for status code
+      :param url: API url
+      :return: request object
+      """
     try:
         r = requests.get(url, params=prms, headers=hdr)
         if r.status_code == 200:
@@ -41,13 +50,22 @@ def do_request(url, hdr=None, prms=None):
 
 
 def read_csv(csv_path):
+    """
+    reading of csv input file
+    :param csv_path: path of input file
+    :return: dataframe
+    """
     df = pandas.read_csv(csv_path, sep='\t', header=0, nrows=5, dtype={'entrez': str})
-
 
     return df
 
 
 def get_func(x):
+    """
+    retrieval of gene function for Uniprot
+    :param x: one item in a column of the df
+    :return:
+    """
     UID = x
     base = 'https://www.uniprot.org/uniprot/'
     params = {
@@ -73,6 +91,15 @@ def get_func(x):
 
 
 def id_convert(df, from_col, to_col, from_db, to_db):
+    """
+    generic function for gene ID conversion
+    :param df: dataframe
+    :param from_col: name of column original ID
+    :param to_col: name of column mapped ID
+    :param from_db: name of original ID database
+    :param to_db: name of mapped ID database
+    :return: updated dataframe
+    """
     # create new column for uniprot ids
     df[to_col] = ['' for _ in range(df.shape[0])]
     entrez_ids = df[from_col]

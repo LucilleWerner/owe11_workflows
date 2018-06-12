@@ -1,0 +1,1 @@
+python3 scripts/omaapi.py outputs/dfposteggnog.csv outputs/dfpostoma.csv

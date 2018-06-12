@@ -1,4 +1,3 @@
-import requests
 import pandas
 from sys import argv
 
@@ -10,6 +9,11 @@ treelinks = list()
 
 
 def get_trees(path):
+    """
+    retrieval of phylogenetic trees from eggNOG
+    :param path: input csv
+    :return:
+    """
 
     df = read_csv(path)
     df['eggnog'].apply(fetch_trees, 1)
@@ -21,6 +25,11 @@ def get_trees(path):
     df.to_csv(path_or_buf=output, header=True, sep='\t', index=False)
 
 def read_csv(csv_path):
+    """
+    reading of csv input file
+    :param csv_path: path of input file
+    :return: dataframe
+    """
     df = pandas.read_csv(csv_path, sep='\t', header=0, nrows=5)
     print(df)
 
@@ -28,6 +37,11 @@ def read_csv(csv_path):
 
 
 def fetch_trees(x):
+    """
+    format a eggNOG link with associated eggNOG ID
+    :param x: one item in a column of the df
+    :return:
+    """
     egg = x[0]
 
     if egg != '':
@@ -36,5 +50,4 @@ def fetch_trees(x):
 
 
 if __name__ == '__main__':
-
     get_trees(input)

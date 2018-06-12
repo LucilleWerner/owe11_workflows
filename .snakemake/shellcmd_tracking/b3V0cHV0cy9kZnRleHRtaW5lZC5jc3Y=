@@ -1,0 +1,1 @@
+python3 scripts/text_mining.py outputs/dfpostoma.csv outputs/dftextmined.csv

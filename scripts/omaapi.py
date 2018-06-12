@@ -1,7 +1,5 @@
 import pandas
 import requests
-import simplejson
-from time import sleep
 from sys import argv
 
 input = argv[1]
@@ -12,6 +10,11 @@ base = 'https://omabrowser.org/api/group/{}/'
 ortholist = list()
 
 def do_request(url, prms=None):
+    """
+      actual REST request, with check for status code
+      :param url: API url
+      :return: request object
+      """
     try:
         r = requests.get(url, params=prms)
         if r.status_code == 200:
@@ -35,12 +38,22 @@ def get_orthologs(path):
 
 
 def read_csv(csv_path):
+    """
+     reading of csv input file
+     :param csv_path: path of input file
+     :return: dataframe
+     """
     df = pandas.read_csv(csv_path, sep='\t', header=0, nrows=5)
     print(df)
 
     return df
 
 def oma_call(x):
+    """
+    call with OMA api for retrieval of orthologs
+    :param x: one item in a column of the df
+    :return:
+    """
     ID = x
 
     url = base.format(ID)
