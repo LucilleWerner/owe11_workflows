@@ -1,6 +1,7 @@
 rule all:
     input:
-        "outputs/dftextmined.csv"
+        "outputs/report.xlsx"
+
 rule get_data_from_ncbi:
     message:
         "Fetching data from Ncbi..."
@@ -45,13 +46,48 @@ rule get_data_from_oma:
     shell:
         "python3 {input} {output}"
 
-rule mine_text:
+#rule mine_text:
+#    message:
+#        "Mining for co-occurence of abstracts..."
+#    input:
+#        "scripts/text_mining.py",
+#        "outputs/dfpostoma.csv"
+#    output:
+#        "outputs/dftextmined.csv"
+#    shell:
+#        "python3 {input} {output}"
+
+rule make_gc_plot:
     message:
-        "Mining for co-occurence of abstracts..."
+        "Creating plot of gc percentages..."
     input:
-        "scripts/text_mining.py",
+        "scripts/gcplot.py",
         "outputs/dfpostoma.csv"
     output:
-        "outputs/dftextmined.csv"
+        "outputs/gc.png"
     shell:
         "python3 {input} {output}"
+
+rule make_report:
+    message:
+        "Generating report"
+    input:
+        "scripts/excelwriter.py",
+        "outputs/dfpostoma.csv",
+        "outputs/gc.png"
+    output:
+        "outputs/report.xlsx"
+    shell:
+        "python3 {input} {output}"
+
+rule cleanup:
+    message:
+        "Clearing outputs folder..."
+    shell:
+        "rm -rfv outputs/*"
+
+rule surprise:
+    message:
+        "Eating some random garbage..."
+    shell:
+        "python3 scripts/surprise.py"

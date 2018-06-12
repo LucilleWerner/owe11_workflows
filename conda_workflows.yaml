@@ -12,3 +12,5 @@ dependencies:
   - bioservices=1.5.2
   - matplotlib=2.1.1
   - requests=2.18.4
+  - termcolor
+  - figlet
