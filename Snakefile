@@ -50,7 +50,7 @@ rule mine_text:
         "Mining for co-occurence of abstracts..."
     input:
         "scripts/text_mining.py",
-        "outputs/dfposteggnog.csv"
+        "outputs/dfpostoma.csv"
     output:
         "outputs/dftextmined.csv"
     shell:
