@@ -1,0 +1,4 @@
+Building DAG of jobs...
+MissingInputException in line 4 of /home/tim/Documents/owe11_workflows/Snakefile:
+Missing input files for rule get_data_from_ncbi:
+RNA-Seq-counts.txt

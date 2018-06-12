@@ -1,0 +1,42 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	get_data_from_eggnog
+	1	get_data_from_ncbi
+	1	get_data_from_uniprot
+	1	mine_text
+	5
+
+Job 4: Fetching data from Ncbi...
+
+Finished job 4.
+1 of 5 steps (20%) done
+
+Job 3: Fetching data from uniprot...
+
+Finished job 3.
+2 of 5 steps (40%) done
+
+Job 2: Fetching data from eggnog...
+
+Finished job 2.
+3 of 5 steps (60%) done
+
+Job 1: Mining for co-occurence of abstracts...
+
+    Error in rule mine_text:
+        jobid: 1
+        output: outputs/dftextmined.csv
+
+RuleException:
+CalledProcessError in line 57 of /home/tim/Documents/owe11_workflows/Snakefile:
+Command ' set -euo pipefail;  python3 scripts/text_mining.py outputs/dfposteggnog.csv outputs/dftextmined.csv ' returned non-zero exit status 1
+  File "/home/tim/Documents/owe11_workflows/Snakefile", line 57, in __rule_mine_text
+  File "/usr/lib/python3.5/concurrent/futures/thread.py", line 55, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/tim/Documents/owe11_workflows/.snakemake/log/2018-06-12T224734.684484.snakemake.log
