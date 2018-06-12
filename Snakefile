@@ -55,3 +55,26 @@ rule mine_text:
         "outputs/dftextmined.csv"
     shell:
         "python3 {input} {output}"
+
+rule make_gc_plot:
+    message:
+        "Creating plot of gc percentages..."
+    input:
+        "scripts/gcplot.py",
+        "outputs/dftextmined.csv"
+    output:
+        "outputs/gc.png"
+    shell:
+        "python3 {input} {output}"
+
+rule cleanup:
+    message:
+        "Clearing outputs folder..."
+    shell:
+        "rm -rfv outputs/*"
+
+rule surprise:
+    message:
+        "Eating some random garbage..."
+    shell:
+        "python3 scripts/surprise.py"
