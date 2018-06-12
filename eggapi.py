@@ -1,6 +1,6 @@
 import requests
 import pandas
-
+from sys import argv
 
 base = 'http://eggnogapi.embl.de/nog_data/html/tree/{}'
 treelinks = list()
@@ -15,7 +15,7 @@ def get_trees(path):
 
     df['tree'] = treelinks
 
-    df.to_csv('workflow.csv')
+    df.to_csv(input)
 
 def read_csv(csv_path):
     df = pandas.read_csv(csv_path, sep='\t', header=0, nrows=5)
@@ -33,4 +33,6 @@ def fetch_trees(x):
 
 
 if __name__ == '__main__':
-    get_trees('workflow.csv')
+    input = argv[1]
+    output = argv[2]
+    get_trees(input)
